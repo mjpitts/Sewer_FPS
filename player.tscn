@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0tnb7klhcrbh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_14kgx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d6bwt"]
+albedo_color = Color(0.841809, 0.551904, 0.00913271, 1)
+roughness = 0.32
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_scst3"]
+material = SubResource("StandardMaterial3D_d6bwt")
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_14kgx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_scst3")
+
+[node name="CameraController" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraController"]
