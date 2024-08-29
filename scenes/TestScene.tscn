@@ -1,15 +1,15 @@
 [gd_scene load_steps=8 format=3 uid="uid://7v1s6sdtpqgk"]
 
-[ext_resource type="Texture2D" uid="uid://diorq0yc3k1s3" path="res://textures/red_brick_03_diff_4k.png" id="1_ar3o1"]
-[ext_resource type="Texture2D" uid="uid://d188tlpxufpyh" path="res://textures/red_brick_03_nor_gl_4k.png" id="2_bjk1h"]
-[ext_resource type="Texture2D" uid="uid://bys6smouwfcw3" path="res://textures/red_brick_03_rough_4k.png" id="3_h8k1w"]
-[ext_resource type="PackedScene" uid="uid://c0tnb7klhcrbh" path="res://player.tscn" id="4_8pnam"]
+[ext_resource type="Texture2D" uid="uid://diorq0yc3k1s3" path="res://textures/red_brick_03_diff_4k.png" id="1_ikxr8"]
+[ext_resource type="Texture2D" uid="uid://d188tlpxufpyh" path="res://textures/red_brick_03_nor_gl_4k.png" id="2_o4al8"]
+[ext_resource type="Texture2D" uid="uid://bys6smouwfcw3" path="res://textures/red_brick_03_rough_4k.png" id="3_rirwg"]
+[ext_resource type="PackedScene" uid="uid://c0tnb7klhcrbh" path="res://scenes/Player.tscn" id="4_ew700"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n58cb"]
-albedo_texture = ExtResource("1_ar3o1")
-roughness_texture = ExtResource("3_h8k1w")
+albedo_texture = ExtResource("1_ikxr8")
+roughness_texture = ExtResource("3_rirwg")
 normal_enabled = true
-normal_texture = ExtResource("2_bjk1h")
+normal_texture = ExtResource("2_o4al8")
 uv1_scale = Vector3(20, 20, 20)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_srk53"]
@@ -26,6 +26,7 @@ transform = Transform3D(-0.925996, -0.377312, -0.01289, -0.357702, 0.865927, 0.3
 shadow_enabled = true
 
 [node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 mesh = SubResource("PlaneMesh_srk53")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
@@ -34,5 +35,4 @@ mesh = SubResource("PlaneMesh_srk53")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41144, -0.298451, -2.17888)
 shape = SubResource("BoxShape3D_1qhyb")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("4_8pnam")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1182, 0)
+[node name="Player" parent="." instance=ExtResource("4_ew700")]
