@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0tnb7klhcrbh"]
+[gd_scene load_steps=5 format=3 uid="uid://c0tnb7klhcrbh"]
+
+[ext_resource type="Script" path="res://scripts/PlayerController.gd" id="1_ix2jx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_14kgx"]
 
@@ -9,7 +11,10 @@ roughness = 0.32
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_scst3"]
 material = SubResource("StandardMaterial3D_d6bwt")
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER")]
+script = ExtResource("1_ix2jx")
+MOUSE_SENSITIVITY = 0.25
+CAMERA_CONTROLLER = NodePath("CameraController/Camera")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_14kgx")
@@ -20,4 +25,7 @@ mesh = SubResource("CapsuleMesh_scst3")
 [node name="CameraController" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CameraController"]
+[node name="Camera" type="Camera3D" parent="CameraController"]
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera"]
+update_mode = 1
