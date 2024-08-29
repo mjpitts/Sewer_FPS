@@ -2,8 +2,10 @@ extends CharacterBody3D
 
 @export var BASE_MOVEMENT_SPEED : float = 3
 @export var WALK_MODIFIER : float = .25
+@export var CROUCH_MODIFIER : float = .5
 @export var MOUSE_SENSITIVITY := 1.0
 @export var CAMERA_CONTROLLER : Camera3D
+@export var ANIMATIONPLAYER : AnimationPlayer
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -22,6 +24,7 @@ var _camera_rotation: Vector3
 
 # Movement vars.
 var _is_walking : bool = false
+var _is_crouching : bool = false
 var _current_speed : float = BASE_MOVEMENT_SPEED
 
 func _physics_process(delta: float) -> void:
@@ -66,7 +69,9 @@ func _ready() -> void:
 # Main function that will handle inputs.
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("walk"):
-		toggle_walk()	
+		toggle_walk()
+	if event.is_action_pressed("crouch"):
+		toggle_crouch()		
 	if event.is_action_pressed("exit"):
 		get_tree().quit()
 
@@ -82,10 +87,22 @@ func _unhandled_input(event: InputEvent) -> void:
 # Toggles walking with shift key.
 func toggle_walk():
 	if _is_walking:
-		_current_speed = BASE_MOVEMENT_SPEED
+		_current_speed = _current_speed / WALK_MODIFIER
 		_is_walking = false
 		
 	else:
-		_current_speed = BASE_MOVEMENT_SPEED * WALK_MODIFIER
+		_current_speed = _current_speed * WALK_MODIFIER
 		_is_walking = true
+		
+# Toggles crouch with ctrl key.
+func toggle_crouch():
+	if _is_crouching:
+		_current_speed = _current_speed / CROUCH_MODIFIER
+		ANIMATIONPLAYER.play("Crouch", -1, -1, true)
+		_is_crouching = false
+		
+	else:
+		_current_speed = _current_speed * CROUCH_MODIFIER
+		ANIMATIONPLAYER.play("Crouch")
+		_is_crouching = true
 	
