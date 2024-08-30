@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c0tnb7klhcrbh"]
+[gd_scene load_steps=9 format=3 uid="uid://c0tnb7klhcrbh"]
 
 [ext_resource type="Script" path="res://scripts/PlayerController.gd" id="1_ix2jx"]
 
@@ -95,8 +95,12 @@ _data = {
 "RESET": SubResource("Animation_jhucr")
 }
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER", "ANIMATIONPLAYER")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_24lck"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("UNCROUCH_SHAPECAST", "CAMERA_CONTROLLER", "ANIMATIONPLAYER")]
 script = ExtResource("1_ix2jx")
+CROUCH_ANIMATION_SPEED = 2.0
+UNCROUCH_SHAPECAST = NodePath("ShapeCast3D")
 MOUSE_SENSITIVITY = 0.25
 CAMERA_CONTROLLER = NodePath("CameraController/Camera")
 ANIMATIONPLAYER = NodePath("AnimationPlayer")
@@ -115,7 +119,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera"]
 update_mode = 1
 
+[node name="SpotLight3D" type="SpotLight3D" parent="CameraController/Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+light_color = Color(1, 1, 0.701961, 1)
+spot_range = 11.951
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_0x2k2")
 }
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
+shape = SubResource("SphereShape3D_24lck")

@@ -1,24 +1,30 @@
-[gd_scene load_steps=9 format=3 uid="uid://7v1s6sdtpqgk"]
+[gd_scene load_steps=10 format=3 uid="uid://7v1s6sdtpqgk"]
 
-[ext_resource type="Texture2D" uid="uid://diorq0yc3k1s3" path="res://textures/red_brick_03_diff_4k.png" id="1_ikxr8"]
-[ext_resource type="Texture2D" uid="uid://d188tlpxufpyh" path="res://textures/red_brick_03_nor_gl_4k.png" id="2_o4al8"]
-[ext_resource type="Texture2D" uid="uid://bys6smouwfcw3" path="res://textures/red_brick_03_rough_4k.png" id="3_rirwg"]
+[ext_resource type="Shader" uid="uid://bqkuwiqp14ed" path="res://shaders/BrickShaderTest.tres" id="1_2hsrm"]
 [ext_resource type="PackedScene" uid="uid://c0tnb7klhcrbh" path="res://scenes/Player.tscn" id="4_ew700"]
 [ext_resource type="PackedScene" uid="uid://dawid18utsa8i" path="res://scenes/FlashLight.tscn" id="5_fp5np"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n58cb"]
-albedo_texture = ExtResource("1_ikxr8")
-roughness_texture = ExtResource("3_rirwg")
-normal_enabled = true
-normal_texture = ExtResource("2_o4al8")
-uv1_scale = Vector3(20, 20, 20)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xwdx3"]
+render_priority = 0
+shader = ExtResource("1_2hsrm")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_srk53"]
-material = SubResource("StandardMaterial3D_n58cb")
+material = SubResource("ShaderMaterial_xwdx3")
 size = Vector2(40, 40)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1qhyb"]
 size = Vector3(39.8967, 0.600989, 35.8528)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qb1y2"]
+render_priority = 0
+shader = ExtResource("1_2hsrm")
+
+[sub_resource type="BoxMesh" id="BoxMesh_5l66i"]
+material = SubResource("ShaderMaterial_qb1y2")
+size = Vector3(3, 3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oj1ny"]
+size = Vector3(3, 0.5, 3)
 
 [node name="TestScene" type="Node3D"]
 
@@ -36,3 +42,13 @@ shape = SubResource("BoxShape3D_1qhyb")
 
 [node name="FlashLight" parent="." instance=ExtResource("5_fp5np")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.56923)
+
+[node name="CrouchCheck" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.981673, 2.26331, 5.00053)
+mesh = SubResource("BoxMesh_5l66i")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CrouchCheck"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CrouchCheck/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00434208, 0.00334466, 0.000455379)
+shape = SubResource("BoxShape3D_oj1ny")
