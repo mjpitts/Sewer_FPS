@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://dawid18utsa8i"]
+
+[ext_resource type="Texture2D" uid="uid://dxef25fid7jro" path="res://textures/green_metal_rust/green_metal_rust_diff_2k.png" id="1_3btja"]
+[ext_resource type="Texture2D" uid="uid://8w1drfybjbkr" path="res://textures/green_metal_rust/green_metal_rust_nor_gl_2k.png" id="2_le8oc"]
+[ext_resource type="Texture2D" uid="uid://cksigt2y04unv" path="res://textures/green_metal_rust/green_metal_rust_rough_2k.png" id="3_ml3b6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pfiet"]
+radius = 0.03
+height = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_53chu"]
+albedo_texture = ExtResource("1_3btja")
+roughness_texture = ExtResource("3_ml3b6")
+normal_enabled = true
+normal_texture = ExtResource("2_le8oc")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rt877"]
+material = SubResource("StandardMaterial3D_53chu")
+radius = 0.03
+height = 0.3
+
+[node name="FlashLight" type="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_pfiet")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_rt877")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00320506, 0.00297432, -0.0297194)
+distance_fade_enabled = true
+spot_range = 3.378
+spot_angle = 19.18

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bttgamx6233r7"]
+
+[ext_resource type="Shader" uid="uid://bqkuwiqp14ed" path="res://shaders/BrickShaderTest.tres" id="1_oskrx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b5821"]
+render_priority = 0
+shader = ExtResource("1_oskrx")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sds3e"]
+material = SubResource("ShaderMaterial_b5821")
+size = Vector2(6, 6)
+
+[node name="BrickShaderTest" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.15256e-07, 0, -2.64495)
+mesh = SubResource("PlaneMesh_sds3e")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.999932, 0, 0.0116412, 0.00576948, 0.868545, 0.495577, -0.0101109, 0.49561, -0.868486, -0.434459, 3.64908, -4.20608)
+light_energy = 16.0
+light_size = 1.0
+light_specular = 1.842
+spot_range = 6.997
+spot_angle = 63.18
